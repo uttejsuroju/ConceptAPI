@@ -1,4 +1,7 @@
 
+using ConceptAPI.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace ConceptAPI
 {
     public class Program
@@ -12,6 +15,14 @@ namespace ConceptAPI
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+
+            //Adding DB
+            builder.Services.AddDbContext<WideWorldImportersDbContext>(options =>
+               options.UseSqlServer(builder.Configuration.GetConnectionString("WideWorldImportersDB")));
+
+            builder.Services.AddDbContext<AdventureWorksDbContext>(options =>
+               options.UseSqlServer(builder.Configuration.GetConnectionString("AdventureWorksDb")));
+
 
             var app = builder.Build();
 
